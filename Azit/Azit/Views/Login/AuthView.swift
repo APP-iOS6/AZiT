@@ -6,14 +6,13 @@
 //
 
 import SwiftUI
-
 import FirebaseAuth
 import GoogleSignIn
 
 struct AuthView: View {
-    @StateObject private var authManager: AuthManager = AuthManager()
-    @StateObject private var userInfoStore: UserInfoStore = UserInfoStore()
-    
+    @EnvironmentObject private var authManager: AuthManager
+    @EnvironmentObject private var userInfoStore: UserInfoStore
+
     var body: some View {
         VStack {
             // 로그인 상태에 따라 보이는 화면을 다르게 함
@@ -21,26 +20,23 @@ struct AuthView: View {
             case .unauthenticated, .authenticating:
                 VStack {
                     LoginView()
-                        .environmentObject(authManager)
                 }
             case .authenticated:
                 VStack {
-                    if authManager.isNicknameExist  {
+                    if authManager.isNicknameExist {
                         MainView()
                     } else {
                         ProfileDetailView()
-                            .environmentObject(authManager)
                     }
                 }
-                .task {
-                    authManager.isNicknameExist =  await userInfoStore.isNicknameExists(for: authManager.userID)
-                }
-                
             }
+        }
+        .onAppear {
+            print(authManager.isNicknameExist)
         }
     }
 }
 
-#Preview {
-    AuthView()
-}
+//#Preview {
+//    AuthView()
+//}

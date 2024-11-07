@@ -9,6 +9,7 @@ import SwiftUI
 
 struct LoginView: View {
     @EnvironmentObject var authManager: AuthManager
+    @EnvironmentObject private var userInfoStore: UserInfoStore
     @Environment(\.dismiss) var dismiss
     @FocusState private var focus: FocusableField?
     
@@ -19,6 +20,7 @@ struct LoginView: View {
     private func signInWithEmailPassword() {
         Task {
             if await authManager.signInWithEmailPassword() == true {
+                authManager.isNicknameExist = await userInfoStore.isNicknameExists(for: authManager.userID)
                 dismiss()
             }
         }
@@ -27,6 +29,7 @@ struct LoginView: View {
     private func signInWithGoogle() {
         Task {
             if await authManager.signInWithGoogle() == true {
+                authManager.isNicknameExist = await userInfoStore.isNicknameExists(for: authManager.userID)
                 dismiss()
             }
         }

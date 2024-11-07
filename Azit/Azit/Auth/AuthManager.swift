@@ -99,6 +99,7 @@ class AuthManager: ObservableObject {
 extension AuthManager {
     func signOut() {
         do {
+            isNicknameExist = false
             try Auth.auth().signOut()
         }
         catch {
