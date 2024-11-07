@@ -20,7 +20,6 @@ struct LoginView: View {
     private func signInWithEmailPassword() {
         Task {
             if await authManager.signInWithEmailPassword() == true {
-                authManager.isNicknameExist = await userInfoStore.isNicknameExists(for: authManager.userID)
                 dismiss()
             }
         }
@@ -29,7 +28,6 @@ struct LoginView: View {
     private func signInWithGoogle() {
         Task {
             if await authManager.signInWithGoogle() == true {
-                authManager.isNicknameExist = await userInfoStore.isNicknameExists(for: authManager.userID)
                 dismiss()
             }
         }

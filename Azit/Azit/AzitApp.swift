@@ -34,7 +34,7 @@ struct AzitApp: App {
     
     var body: some Scene {
         WindowGroup {
-            SplashView()
+            AuthView()
                 .environmentObject(authManager)
                 .environmentObject(userInfoStore)
                 .environmentObject(chatListStore)
