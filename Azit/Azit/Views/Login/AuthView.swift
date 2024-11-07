@@ -25,6 +25,8 @@ struct AuthView: View {
                 VStack {
                     if authManager.isNicknameExist {
                         MainView()
+                            .environmentObject(authManager)
+                            .environmentObject(userInfoStore)
                     } else {
                         ProfileDetailView()
                     }
