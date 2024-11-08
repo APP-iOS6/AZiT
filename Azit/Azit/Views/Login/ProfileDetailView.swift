@@ -103,7 +103,7 @@ struct ProfileDetailView: View {
                 }
                 StartButton(
                     inputText: "시작하기",
-                    isLoading: authManager.authenticationState == .authenticating,
+                    isLoading: authManager.authenticationState == .authenticated,
                     isShowNickname: isShowNickname,
                     isShowEmoji: isShowEmoji,
                     action: StartAzit

@@ -31,8 +31,11 @@ extension AuthManager {
         email = fullEmail // 로그인 화면으로 돌아갈 때 그대로 가져옴
         authenticationState = .authenticating
         do  {
-            try await Auth.auth().createUser(withEmail: fullEmail, password: password)
-            return true
+            if true {
+                try await Auth.auth().createUser(withEmail: fullEmail, password: password)
+                
+                return true
+            }
         }
         catch {
             print(error)
