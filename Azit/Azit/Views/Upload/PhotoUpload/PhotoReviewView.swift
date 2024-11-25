@@ -36,6 +36,8 @@ struct PhotoReviewView: View {
     @State var isSelectText: Bool = false // 이미지에 텍스트를 넣을것인가?
     @State var friendID: String = ""
     
+    @Binding var isClosedSwipe: Bool // 특정 화면으로 넘어가면 스와이프를 못하게 막음
+    
     var body: some View {
         ZStack() {
             if isDisplayTextEditor {                TextEditorView(isDisplayTextEditor: $isDisplayTextEditor)
@@ -191,6 +193,8 @@ struct PhotoReviewView: View {
     }
     
     private func shareStory() {
+        isClosedSwipe = false // 스와이프 허용
+        
         // 스토리 객체 생성
         let newStory = Story(
             id: storyDraft.id,

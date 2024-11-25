@@ -16,6 +16,7 @@ struct ModalIdentificationView: View {
     @Binding var message: String
     @Binding var selectedIndex: Int
     @Binding var isShowToast: Bool
+    @Binding var isClosedSwipe: Bool // 특정 화면으로 넘어가면 스와이프를 못하게 막음
     
     var body: some View {
         // 친구의 모달이 불렸을 때
@@ -42,7 +43,7 @@ struct ModalIdentificationView: View {
                         isDisplayEmojiPicker = false
                     }
                     .zIndex(2)
-                EmojiView(isDisplayEmojiPicker: $isDisplayEmojiPicker, isMyModalPresented: $isMyModalPresented)
+                EmojiView(isDisplayEmojiPicker: $isDisplayEmojiPicker, isMyModalPresented: $isMyModalPresented, isClosedSwipe: $isClosedSwipe)
                     .zIndex(3)
             }
         // story 작성 후 24시간이 지나지 않았을 때
@@ -54,7 +55,7 @@ struct ModalIdentificationView: View {
                         isMyModalPresented = false
                     }
                     .zIndex(2)
-                MyContentsModalView(isDisplayEmojiPicker: $isDisplayEmojiPicker, isMyModalPresented: $isMyModalPresented)
+                MyContentsModalView(isDisplayEmojiPicker: $isDisplayEmojiPicker, isMyModalPresented: $isMyModalPresented, isClosedSwipe: $isClosedSwipe)
                     .zIndex(3)
             }
         }

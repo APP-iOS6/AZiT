@@ -35,6 +35,8 @@ struct RotationView: View {
     @State private var isTappedWidget = false // 위젯이 클릭 되었는지 확인
     @State private var tappedWidgetUserInfo: UserInfo = UserInfo(id: "", email: "", nickname: "", profileImageName: "", previousState: "", friends: [], latitude: 0.0, longitude: 0.0, blockedFriends: [], fcmToken: "")
   
+    @Binding var isClosedSwipe: Bool // 특정 화면으로 넘어가면 스와이프를 못하게 막음
+    
     var body: some View {
         ZStack {
             ZStack {
@@ -116,7 +118,7 @@ struct RotationView: View {
                                     users: $sortedUsers,
                                     message: $message,
                                     selectedIndex: $selectedIndex,
-                                    isShowToast: $isShowToast)
+                                    isShowToast: $isShowToast, isClosedSwipe: $isClosedSwipe)
             
             
             if isTappedWidget {

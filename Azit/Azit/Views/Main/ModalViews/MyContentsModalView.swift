@@ -24,6 +24,8 @@ struct MyContentsModalView: View {
     @State private var isPresentedLikedSheet: Bool = false
     @State private var isLoadingStory: Bool = true // Story 로딩 상태 추가
     
+    @Binding var isClosedSwipe: Bool // 특정 화면으로 넘어가면 스와이프를 못하게 막음
+    
     var body: some View {
         ZStack {
             VStack(alignment: .center, spacing: 15) {
@@ -107,7 +109,7 @@ struct MyContentsModalView: View {
                         isDisplayEmojiPicker = false
                     }
                     .zIndex(2)
-                EmojiView(isDisplayEmojiPicker: $isDisplayEmojiPicker, isMyModalPresented: $isMyModalPresented)
+                EmojiView(isDisplayEmojiPicker: $isDisplayEmojiPicker, isMyModalPresented: $isMyModalPresented, isClosedSwipe: $isClosedSwipe)
                     .zIndex(3)
             }
         }

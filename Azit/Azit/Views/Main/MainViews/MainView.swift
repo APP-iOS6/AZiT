@@ -31,19 +31,21 @@ struct MainView: View {
     @State private var isRightToLeftSwipe = false // 오른쪽에서 왼쪽 스와이프 여부
     @State private var isLeftToRightSwipe = false // 왼쪽에서 오른쪽 스와이프 여부
     
+    @Binding var isClosedSwipe: Bool // 특정 화면으로 넘어가면 스와이프를 못하게 막음
+    
     var body: some View {
         NavigationStack() {
             ZStack {
                 // 메인 화면일 때 타원 뷰
                 if isMainExposed {
-                    RotationView(isMainExposed: $isMainExposed, isMyModalPresented: $isMyModalPresented, isFriendsModalPresented: $isFriendsModalPresented, isDisplayEmojiPicker: $isDisplayEmojiPicker, isPassed24Hours: $isPassed24Hours, isShowToast: $isShowToast)
+                    RotationView(isMainExposed: $isMainExposed, isMyModalPresented: $isMyModalPresented, isFriendsModalPresented: $isFriendsModalPresented, isDisplayEmojiPicker: $isDisplayEmojiPicker, isPassed24Hours: $isPassed24Hours, isShowToast: $isShowToast, isClosedSwipe: $isClosedSwipe)
                         .frame(width: 300, height: 300)
                         .zIndex(isMyModalPresented
                                 || isFriendsModalPresented
                                 || isDisplayEmojiPicker ? 2 : 1)
                 // 맵 화면일 때 맵 뷰
                 } else {
-                    MapView(isMainExposed: $isMainExposed, isMyModalPresented: $isMyModalPresented, isFriendsModalPresented: $isFriendsModalPresented, isDisplayEmojiPicker: $isDisplayEmojiPicker, isPassed24Hours: $isPassed24Hours, isShowToast: $isShowToast)
+                    MapView(isMainExposed: $isMainExposed, isMyModalPresented: $isMyModalPresented, isFriendsModalPresented: $isFriendsModalPresented, isDisplayEmojiPicker: $isDisplayEmojiPicker, isPassed24Hours: $isPassed24Hours, isShowToast: $isShowToast, isClosedSwipe: $isClosedSwipe)
                         .zIndex(isMyModalPresented
                                 || isFriendsModalPresented
                                 || isDisplayEmojiPicker ? 2 : 1)

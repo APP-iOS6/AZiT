@@ -17,6 +17,7 @@ struct TakePhotoView: View {
     @Binding var isMyModalPresented: Bool // 내 스토리에 대한 모달
     @State private var progressValue: Double = 1.0
     let totalValue: Double = 2.0
+    @Binding var isClosedSwipe: Bool // 특정 화면으로 넘어가면 스와이프를 못하게 막음
     
     var body: some View {
         VStack {
@@ -98,13 +99,14 @@ struct TakePhotoView: View {
             
             // PhotoReviewView 전환
             NavigationLink(
-                destination: PhotoReviewView(firstNaviLinkActive: $firstNaviLinkActive,isMainDisplay: $isMainDisplay , isMyModalPresented: $isMyModalPresented, isPhotoTaken: $isPhotoTaken, image: cameraService.capturedImage),
+                destination: PhotoReviewView(firstNaviLinkActive: $firstNaviLinkActive,isMainDisplay: $isMainDisplay , isMyModalPresented: $isMyModalPresented, isPhotoTaken: $isPhotoTaken, image: cameraService.capturedImage, isClosedSwipe: $isClosedSwipe),
                 isActive: $isPhotoTaken,
                 label: { EmptyView() }
             )
             
         }
         .onAppear {
+            isClosedSwipe = true // 스와이프 막음
             cameraService.capturedImage = nil
         }
         .navigationBarTitle("사진 촬영", displayMode: .inline)

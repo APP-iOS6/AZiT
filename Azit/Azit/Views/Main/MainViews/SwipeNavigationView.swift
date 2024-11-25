@@ -13,10 +13,12 @@ struct SwipeNavigationView: View {
     @State private var isShowToast = false
     private let animationDuration: Double = 0.25 // 애니메이션 지속 시간
 
+    @State var isClosedSwipe: Bool = false // 특정 화면으로 넘어가면 스와이프를 못하게 막음
+    
     var views: [AnyView] {
         [
             AnyView(MyPageView(currentIndex: $currentIndex)),
-            AnyView(MainView()),
+            AnyView(MainView(isClosedSwipe: $isClosedSwipe)),
             AnyView(MessageView(isShowToast: $isShowToast, currentIndex: $currentIndex))
         ]
     }
@@ -35,30 +37,34 @@ struct SwipeNavigationView: View {
                 DragGesture()
                     .onChanged { value in
                         // 양쪽 끝에서 드래그를 제한
-                        if (currentIndex == 0 && value.translation.width > 0) || (currentIndex == views.count - 1 && value.translation.width < 0) {
-                            offset = 0
-                        } else {
-                            offset = value.translation.width
+                        if !isClosedSwipe {
+                            if (currentIndex == 0 && value.translation.width > 0) || (currentIndex == views.count - 1 && value.translation.width < 0) {
+                                offset = 0
+                            } else {
+                                offset = value.translation.width
+                            }
                         }
                     }
                     .onEnded { value in
-                        let threshold = geometry.size.width / 4 // 스와이프 감도
-                        if value.translation.width < -threshold, currentIndex < views.count - 1 {
-                            // 왼쪽으로 스와이프 -> 다음 뷰로 이동
-                            withAnimation(.easeOut(duration: animationDuration)) {
-                                currentIndex += 1
-                                offset = 0
-                            }
-                        } else if value.translation.width > threshold, currentIndex > 0 {
-                            // 오른쪽으로 스와이프 -> 이전 뷰로 이동
-                            withAnimation(.easeOut(duration: animationDuration)) {
-                                currentIndex -= 1
-                                offset = 0
-                            }
-                        } else {
-                            // 스와이프 취소
-                            withAnimation(.easeOut(duration: animationDuration)) {
-                                offset = 0
+                        if !isClosedSwipe {
+                            let threshold = geometry.size.width / 4 // 스와이프 감도
+                            if value.translation.width < -threshold, currentIndex < views.count - 1 {
+                                // 왼쪽으로 스와이프 -> 다음 뷰로 이동
+                                withAnimation(.easeOut(duration: animationDuration)) {
+                                    currentIndex += 1
+                                    offset = 0
+                                }
+                            } else if value.translation.width > threshold, currentIndex > 0 {
+                                // 오른쪽으로 스와이프 -> 이전 뷰로 이동
+                                withAnimation(.easeOut(duration: animationDuration)) {
+                                    currentIndex -= 1
+                                    offset = 0
+                                }
+                            } else {
+                                // 스와이프 취소
+                                withAnimation(.easeOut(duration: animationDuration)) {
+                                    offset = 0
+                                }
                             }
                         }
                     }

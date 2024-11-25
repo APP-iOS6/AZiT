@@ -29,6 +29,8 @@ struct EmojiView : View {
         return storyDraft.emoji.isEmpty && storyDraft.content.isEmpty
     }
     
+    @Binding var isClosedSwipe: Bool // 특정 화면으로 넘어가면 스와이프를 못하게 막음
+    
     var body : some View{
         VStack {
             NavigationStack {                
@@ -100,7 +102,7 @@ struct EmojiView : View {
             }
             
             // 카메라 촬영 버튼
-            NavigationLink(destination: TakePhotoView(firstNaviLinkActive: $firstNaviLinkActive, isMainDisplay: $isDisplayEmojiPicker, isMyModalPresented: $isMyModalPresented), isActive: $firstNaviLinkActive) {
+            NavigationLink(destination: TakePhotoView(firstNaviLinkActive: $firstNaviLinkActive, isMainDisplay: $isDisplayEmojiPicker, isMyModalPresented: $isMyModalPresented, isClosedSwipe: $isClosedSwipe), isActive: $firstNaviLinkActive) {
                 RoundedRectangle(cornerSize: CGSize(width: 15.0, height: 15.0))
                     .background(RoundedRectangle(cornerSize: CGSize(width: 15.0, height: 15.0))
                         .fill(Color.accentColor))

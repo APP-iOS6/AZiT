@@ -26,6 +26,8 @@ struct MapView: View {
     @State private var selectedIndex: Int = 0
     @State private var message: String = ""
     
+    @Binding var isClosedSwipe: Bool // 특정 화면으로 넘어가면 스와이프를 못하게 막음
+    
     var body: some View {
         ZStack {
             Map(coordinateRegion: $region, annotationItems: $users) { $user in
@@ -72,7 +74,7 @@ struct MapView: View {
                                     users: $users,
                                     message: $message,
                                     selectedIndex: $selectedIndex,
-                                    isShowToast: $isShowToast)
+                                    isShowToast: $isShowToast, isClosedSwipe: $isClosedSwipe)
         }
         .ignoresSafeArea()
         .onAppear {
