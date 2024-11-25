@@ -14,6 +14,7 @@ struct MessageView: View {
     @EnvironmentObject var chatListStore: ChatListStore
     @Environment(\.dismiss) var dismiss
     @Binding var isShowToast: Bool
+    @Binding var currentIndex: Int
     
     var body: some View {
         NavigationStack {
@@ -22,7 +23,10 @@ struct MessageView: View {
                         // 상단바
                         HStack {
                             Button {
-                                dismiss()
+                                //dismiss()
+                                withAnimation(.easeInOut) {
+                                    currentIndex = 1 // 메인화면으로 이동
+                                }
                             } label: {
                                 Image(systemName: "chevron.left")
                                     .font(.system(size: 25))

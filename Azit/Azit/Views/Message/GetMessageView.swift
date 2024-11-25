@@ -139,7 +139,7 @@ struct GetMessage: View {
                                     .foregroundStyle(Color.white)
                                     .multilineTextAlignment(.leading)
                                     .padding(.horizontal, 10)
-                                    .padding(.vertical, 7)
+                                    .padding(.vertical, 10)
                                     .background(Color.accent)
                                     .cornerRadius(15)
                                     .fixedSize(horizontal: false, vertical: true) // 높이를 내용에 맞게 조절

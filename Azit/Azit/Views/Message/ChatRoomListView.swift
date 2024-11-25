@@ -42,7 +42,7 @@ struct ChatRoomListView: View {
                                     // 프로필 이미지 원
                                     ZStack(alignment: .center) {
                                         Circle()
-                                            .fill(Color.subColor3) // 색상 수정 가능
+                                            .fill(Color.subColor4) // 색상 수정 가능
                                             .frame(width: geometry.size.width * 0.15, height: geometry.size.width * 0.15)
                                         
                                         Text(friend.profileImageName) // 프로필 이미지가 문자열로 설정된 경우

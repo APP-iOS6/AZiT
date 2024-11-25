@@ -180,11 +180,11 @@ struct MessageDetailTopBar: View {
             
             ZStack(alignment: .center) {
                 Circle()
-                    .fill(.subColor3)
-                    .frame(width: 60, height: 60)
+                    .fill(.subColor4)
+                    .frame(width: 40, height: 40)
                 
                 Text(profileImageName)
-                    .font(.system(size: 40))
+                    .font(.title3)
             }
             .frame(alignment: .leading)
             .padding(.leading, 10)
@@ -194,7 +194,7 @@ struct MessageDetailTopBar: View {
                 .fontWeight(.bold)
                 .foregroundStyle(Color.black)
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 10)
+                .padding(.leading, 5)
             
         }
     }

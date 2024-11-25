@@ -19,28 +19,31 @@ struct MyPageView: View {
     @State var friendID: String = ""      // 친구 id 담을 곳
     
     @State private var scale: CGFloat = 0.1
+    @Binding var currentIndex: Int
     
     var body: some View {
         ZStack {
             VStack(alignment: .center) {
                 HStack {
-                    Button {
-                        dismiss()
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .font(.system(size: 25))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .padding(.horizontal, 20)
+                    Color.clear
+                        .frame(maxWidth: .infinity)
                     
                     Text("My Page")
                         .font(.title3)
                         .fontWeight(.bold)
                         .frame(maxWidth: .infinity, alignment: .center)
                     
-                    Color.clear
-                        .frame(maxWidth: .infinity)
-                    
+                    Button {
+                        //dismiss()
+                        withAnimation(.easeInOut) {
+                            currentIndex = 1 // 메인화면으로 이동
+                        }
+                    } label: {
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: 25))
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                    }
+                    .padding(.horizontal, 20)
                 }
                 .frame(height: 70)
                 .background(Color.white)
@@ -336,6 +339,6 @@ struct MyPageView: View {
     }
 }
 
-#Preview {
-    MyPageView()
-}
+//#Preview {
+//    MyPageView()
+//}
