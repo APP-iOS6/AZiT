@@ -62,6 +62,7 @@ struct TakePhotoView: View {
                     PhotoPicker(image: $cameraService.capturedImage)
                         .onChange(of: cameraService.capturedImage){
                             self.isPhotoTaken = true
+                            isClosedSwipe = false
                         }
                 }
                 Spacer()
@@ -84,6 +85,7 @@ struct TakePhotoView: View {
                 .onReceive(cameraService.$capturedImage) { image in
                     if image != nil {
                         self.isPhotoTaken = true
+                        isClosedSwipe = false
                     }
                 }
                 Spacer()
@@ -103,10 +105,9 @@ struct TakePhotoView: View {
                 isActive: $isPhotoTaken,
                 label: { EmptyView() }
             )
-            
         }
         .onAppear {
-            isClosedSwipe = true // 스와이프 막음
+            isClosedSwipe = true
             cameraService.capturedImage = nil
         }
         .navigationBarTitle("사진 촬영", displayMode: .inline)

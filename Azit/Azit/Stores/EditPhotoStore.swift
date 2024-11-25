@@ -92,7 +92,8 @@ class EditPhotoStore: ObservableObject {
                 .rotationEffect(imageRotation)
 
             Text(textInput)
-                .font(.largeTitle)
+                .font(.title3)
+                .frame(maxWidth: 300, alignment: .center)
                 .foregroundColor(.white)
                 .shadow(radius: 5)
                 .padding(10)
